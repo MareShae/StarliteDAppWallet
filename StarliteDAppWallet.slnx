@@ -1,0 +1,12 @@
+﻿<Solution>
+  <Project Path="StarliteDAppWallet.Android/StarliteDAppWallet.Android.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="StarliteDAppWallet.Browser/StarliteDAppWallet.Browser.csproj" />
+  <Project Path="StarliteDAppWallet.Desktop/StarliteDAppWallet.Desktop.csproj" />
+  <Project Path="StarliteDAppWallet.iOS/StarliteDAppWallet.iOS.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="StarliteDAppWallet/StarliteDAppWallet.csproj" />
+</Solution>
+####

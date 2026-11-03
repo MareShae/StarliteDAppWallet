@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:StarliteDAppWallet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StarliteDAppWallet.Views.SeedView"
+             x:DataType="vm:SeedViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:SeedViewModel />
+    </Design.DataContext>
+
+
+    <!-- ScrollViewer makes StackPanel scrollable -->
+    <!-- mnemonic, buttons -->
+    <Grid RowDefinitions="*, Auto">
+
+        <!-- <ScrollViewer
+            VerticalScrollBarVisibility="Auto" > -->
+
+            <ItemsControl Grid.Column="0"  ItemsSource="{Binding Seeds}">
+
+                <!-- StackPanel arrange profiles neatly  -->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <!-- Content is produced in a ContentPresenter, Canvas props do not -->
+                    <DataTemplate>
+
+                        <Button Command="{Binding $parent[ItemsControl].DataContext.OnSeedsClicked}"
+                            CommandParameter="{Binding}"
+                            Background="Transparent"
+                            BorderBrush="Transparent" >
+
+                            <TextBlock Text="{Binding Passphrase}" />
+
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        <!-- </ScrollViewer> -->
+
+        <!-- buttons -->
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto">
+            <TextBox Text="{Binding Passphrase}" />
+            <Button Grid.Column="1" Content="new seed" Command="{Binding OnNewSeed}" />
+        </Grid>
+
+    </Grid>
+</UserControl>

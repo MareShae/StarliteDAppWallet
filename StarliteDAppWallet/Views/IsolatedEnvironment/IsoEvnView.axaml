@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:StarliteDAppWallet.ViewModels"
+             xmlns:addon="clr-namespace:Avalonia.Controls;assembly=Avalonia.Controls.WebView"
+             xmlns:custom="using:StarliteDAppWallet.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StarliteDAppWallet.Views.IsoEvnView"
+             x:DataType="vm:IsoEvnViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:IsoEvnViewModel />
+    </Design.DataContext>
+
+    <Panel>
+        <custom:Web3View x:Name="dummywebview"
+            IsVisible="false"
+            NavigationStarted="OnNavigationStarted"
+            NavigationCompleted="OnNavigationCompleted"
+            WebMessageReceived="OnMessageReceived" />
+        <Button Content="+"
+            Click="CommandPlus"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
+    </Panel>
+</UserControl>

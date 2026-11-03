@@ -1,0 +1,52 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:StarliteDAppWallet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StarliteDAppWallet.Views.MnemonicView"
+             x:DataType="vm:MnemonicViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MnemonicViewModel />
+    </Design.DataContext>
+
+
+    <!-- ScrollViewer makes StackPanel scrollable -->
+    <!-- mnemonic, buttons -->
+    <Grid RowDefinitions="*, Auto">
+
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto" >
+            <Grid Grid.Row="0" RowDefinitions="Auto,  *">
+                <!-- alias -->
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <TextBlock Text="Alias" />
+                    <TextBox Text="{Binding Alias}" 
+                        PlaceholderText="Enter a unique name for your account"
+                        PlaceholderForeground="Red" />
+                </StackPanel>
+
+                <!-- mnemonic -->
+                <!-- label, message, textbox, status -->
+                <Grid Grid.Row="1" RowDefinitions="Auto,  *, Auto">
+                    <!-- a message that depends on the view mode in code-behind -->
+                    <TextBlock Grid.Row="0" Text="{Binding MessageOnMnemonic}" />
+
+                    <!-- editable mnemonic phrase depending on mode -->
+                    <TextBox Grid.Row="1" Text="{Binding Mnemonic}" TextWrapping="Wrap" IsReadOnly="{Binding IsMnemonicReadOnly}" VerticalAlignment="Stretch" />
+
+                    <!-- status on the mnemonic phrase -->
+                    <TextBlock Grid.Row="2" Text="{Binding StatusOnMnemonic}" />
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- buttons -->
+        <Panel Grid.Row="1" >
+            <Button Content="continue" Command="{Binding OnContinueFromView}" />
+        </Panel>
+
+    </Grid>
+</UserControl>

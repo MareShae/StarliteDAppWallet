@@ -1,0 +1,67 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:StarliteDAppWallet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StarliteDAppWallet.Views.ProfileView"
+             x:DataType="vm:ProfileViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:ProfileViewModel />
+    </Design.DataContext>
+
+    <Panel>
+        <Grid RowDefinitions="Auto, *">
+            <!-- Title of the Account -->
+            <Panel Grid.Row="0">
+                <Button Command="{Binding OnDerivationTitleClicked}"
+                    Background="Transparent"
+                    BorderBrush="Transparent" >
+                    <TextBlock Text="{Binding DerivationTitle}" />
+                </Button>
+            </Panel>
+
+            <Grid Grid.Row="1" RowDefinitions="Auto, *">
+                <!-- Title for the Section -->
+                <TextBlock Grid.Row="0" Text="DApps" />
+
+                <!-- The list in a scroll viewer -->
+                <ScrollViewer
+                VerticalScrollBarVisibility="Auto" >
+
+                    <ItemsControl Grid.Row="1"  ItemsSource="{Binding DAppsList}">
+
+                        <!-- StackPanel arrange profiles neatly  -->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <!-- Content is produced in a ContentPresenter, Canvas props do not -->
+                            <DataTemplate>
+
+                                <Button Command="{Binding $parent[ItemsControl].DataContext.OnDAppClicked}"
+                                    CommandParameter="{Binding}"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent" >
+
+                                    <TextBlock Text="{Binding}" />
+
+                                </Button>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <ContentControl Content="{Binding Overlay}" />
+    </Panel>
+</UserControl>

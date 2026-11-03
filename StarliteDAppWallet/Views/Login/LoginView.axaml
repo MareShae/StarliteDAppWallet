@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:StarliteDAppWallet.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StarliteDAppWallet.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:LoginViewModel />
+    </Design.DataContext>
+
+     <!-- VerticalOrientation="Center" HorizontalOrientation="Center" -->
+    <Grid RowDefinitions="*, Auto">
+
+        <!-- ScrollViewer makes StackPanel scrollable -->
+        <ScrollViewer
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto" >
+
+            <ItemsControl Grid.Row="0"  ItemsSource="{Binding Profiles}">
+
+                <!-- StackPanel arrange profiles neatly  -->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <!-- Content is produced in a ContentPresenter, Canvas props do not -->
+                    <DataTemplate>
+
+                        <Button Command="{Binding $parent[ItemsControl].DataContext.OnProfileClicked}"
+                            CommandParameter="{Binding}"
+                            Background="Transparent"
+                            BorderBrush="Transparent" >
+
+                            <TextBlock Text="{Binding Alias}" />
+
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="import" Command="{Binding ImportWallet}" />
+            <Button Content="create" Command="{Binding CreateWallet}" />
+        </StackPanel>
+
+    </Grid>
+</UserControl>
